@@ -9,6 +9,14 @@
   "keywords": ["Node", "React", "MongoDB"],
   "author": "Vitaliy Inshakov",
   "license": "MIT",
+  "homepage": "https://github.com/VitaliyInshakov/budget-manager#readme",
+  "_moduleAliases": {
+    "@root": ".",
+    "@BudgetManager": "./services/BudgetManagerAPI",
+    "@BudgetManagerModels": "./services/BudgetManagerAPI/app/models",
+    "@BudgetManagerAPI": "./services/BudgetManagerAPI/config/app.js",
+    "@config": "./services/BudgetManagerAPI/config/index.js"
+  },
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
