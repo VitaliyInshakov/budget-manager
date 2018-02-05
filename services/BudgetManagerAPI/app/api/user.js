@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const api = {};
 
 api.setup = (User) => (req, res) => {
-  const Admin = new User({
+  const admin = new User({
     username: 'admin',
     password: 'admin',
     clients: []
