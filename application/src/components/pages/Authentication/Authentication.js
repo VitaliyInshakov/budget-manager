@@ -6,6 +6,8 @@ import Lock from 'material-ui/svg-icons/action/lock';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/index';
 
@@ -26,31 +28,45 @@ class Authentication extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
+      <div className="container">
         <form className="auth-form">
-          <div>
-            <AccountBox />
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <AccountBox />
+            </div>
             <Field
               name='username'
               component={this.renderTextField.bind(this)}
               label='Username'
             />
           </div>
-          <div>
-            <Lock />
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <Lock />
+            </div>
             <Field
               name='password'
               component={this.renderTextField.bind(this)}
               label='Password'
             />
-            <IconButton onClick={this.props.changeVisibility}>
-              {this.props.toggleVisibility
-                ? <Visibility />
-                : <VisibilityOff />
-              }
-            </IconButton>
+             <div className="input-group-append">
+              <IconButton onClick={this.props.changeVisibility}>
+                {this.props.loginPasswordVisible
+                  ? <Visibility />
+                  : <VisibilityOff />
+                }
+              </IconButton>
+              </div>
           </div>
+          <FlatButton label="Create account" primary={true} onClick={this.props.changeSignUpVisible} />
+          <RaisedButton label="Login" primary={true} />
         </form>
+        {
+          this.props.signUpVisible
+          ? 
+            null
+          : null
+        }
       </div>
     )
   }
@@ -70,7 +86,8 @@ function validate(formProps) {
 
 function mapStateToProps(state) {
   return {
-    toggleVisibility: state.auth.toggleVisibility
+    loginPasswordVisible: state.auth.loginPasswordVisible,
+    signUpVisible: state.auth.signUpVisible
   }
 }
 

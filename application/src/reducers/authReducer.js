@@ -1,13 +1,16 @@
-import { AUTH_USER, TOGGLE_VISIBLE } from '../actions/actionTypes';
+import { AUTH_USER, TOGGLE_VISIBLE, SIGNUP_FORM } from '../actions/actionTypes';
 
 export default function(state = {}, action) {
   switch(action.type) {
     case AUTH_USER:
-      return {...state, authenticated: true }
+      return {...state, authenticated: true}
     case TOGGLE_VISIBLE:
       const newState = Object.assign({}, state);
-      newState.toggleVisibility = !newState.toggleVisibility;
+      newState.loginPasswordVisible = !newState.loginPasswordVisible;
       return newState;
+    case SIGNUP_FORM:
+      return {...state, signUpVisible: true}
+    default:
+      return state;
   }
-  return state;
 }
