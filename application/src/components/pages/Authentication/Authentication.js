@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
-import AccountBox from 'material-ui/svg-icons/action/account-box';
-import Lock from 'material-ui/svg-icons/action/lock';
-import Visibility from 'material-ui/svg-icons/action/visibility';
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/index';
+import SignUpForm from './SignUpForm';
 
 class Authentication extends Component {
   renderTextField({input, label, meta: {touched, error}, ...custom}) {
@@ -24,47 +20,53 @@ class Authentication extends Component {
     )
   }
 
+  handleSubmitAuthentication(formProps) {
+    this.props.authenticate(formProps, '/');
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <div className="container">
         <form className="auth-form">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <AccountBox />
-            </div>
+          <div className="light-blue--text text--lighten-1">
+            <i className="material-icons input-group__prepend-icon">account_box</i>
             <Field
               name='username'
               component={this.renderTextField.bind(this)}
-              label='Username'
-            />
+              label='Username*'
+              />
           </div>
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <Lock />
-            </div>
+          <div className="light-blue--text text--lighten-1">
+            <i className="material-icons input-group__prepend-icon">lock</i>
             <Field
               name='password'
               component={this.renderTextField.bind(this)}
-              label='Password'
+              label='Password*'
+              type={this.props.loginPasswordVisible ? 'text' : 'password'}
             />
-             <div className="input-group-append">
-              <IconButton onClick={this.props.changeVisibility}>
-                {this.props.loginPasswordVisible
-                  ? <Visibility />
-                  : <VisibilityOff />
-                }
-              </IconButton>
-              </div>
+            <i className="material-icons input-group__append-icon" onClick={this.props.changeloginPasswordVisible}>
+              {this.props.loginPasswordVisible ? 'visibility' : 'visibility_off'}
+            </i>
           </div>
-          <FlatButton label="Create account" primary={true} onClick={this.props.changeSignUpVisible} />
-          <RaisedButton label="Login" primary={true} />
+          <FlatButton
+            className="btn--block"
+            label="Create account"
+            primary={true}
+            onClick={this.props.changeSignUpVisible}
+          />
+          <RaisedButton
+            className="btn--block"
+            label="Login"
+            primary={true}
+            onClick={handleSubmit(this.handleSubmitAuthentication.bind(this))}
+          />
         </form>
         {
           this.props.signUpVisible
           ? 
-            null
+            <SignUpForm />
           : null
         }
       </div>

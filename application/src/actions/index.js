@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, TOGGLE_VISIBLE, SIGNUP_FORM } from './actionTypes';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  LOGIN_PASSWORD_VISIBLE,
+  SIGNUP_VISIBLE,
+  SIGNUP_PASSWORD_VISIBLE
+} from './actionTypes';
 import { history } from '../store/Store';
 
 const BudgetManagetAPI = `http://${window.location.hostname}:3001`;
@@ -39,14 +45,20 @@ export function authError(error) {
   }
 }
 
-export function changeVisibility() {
+export function changeloginPasswordVisible() {
   return function(dispatch) {
-    dispatch({ type: TOGGLE_VISIBLE });
+    dispatch({ type: LOGIN_PASSWORD_VISIBLE });
+  }
+}
+
+export function changesignUpPasswordVisible () {
+  return function(dispatch) {
+    dispatch({ type: SIGNUP_PASSWORD_VISIBLE });
   }
 }
 
 export function changeSignUpVisible() {
   return function(dispatch) {
-    dispatch({ type: SIGNUP_FORM })
+    dispatch({ type: SIGNUP_VISIBLE })
   }
 }
