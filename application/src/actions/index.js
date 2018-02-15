@@ -4,7 +4,8 @@ import {
   AUTH_ERROR,
   LOGIN_PASSWORD_VISIBLE,
   SIGNUP_VISIBLE,
-  SIGNUP_PASSWORD_VISIBLE
+  SIGNUP_PASSWORD_VISIBLE,
+  GET_USERS
 } from './actionTypes';
 import { history } from '../store/Store';
 
@@ -13,13 +14,13 @@ const BudgetManagetAPI = `http://${window.location.hostname}:3001`;
 export function authenticate(credentials, redirect) {
   return function(dispatch) {
     axios.post(`${BudgetManagetAPI}/api/v1/auth`, credentials)
-      .then(({ data: { token } }) => {
+      .then((response) => {
         dispatch({ type: AUTH_USER });
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', response.data.token);
         if(redirect) history.push(redirect);
       })
-      .catch(({ response: { data } }) => {
-        dispatch(authError(data.message));
+      .catch((response) => {
+        dispatch(authError(response.data.message));
       })
   }
 }
@@ -27,13 +28,13 @@ export function authenticate(credentials, redirect) {
 export function signup(credentials, redirect) {
   return function(dispatch) {
     axios.post(`${BudgetManagetAPI}/api/v1/signup`, credentials)
-      .then(({ data: { token } }) => {
+      .then((response) => {
         dispatch({ type: AUTH_USER });
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', response.data.token);
         if(redirect) history.push(redirect);
       })
-      .catch(({ response: { data } }) => {
-        dispatch(authError(data.message));
+      .catch((response) => {
+        dispatch(authError(response.data.message));
       })
   }
 }
@@ -60,5 +61,20 @@ export function changesignUpPasswordVisible () {
 export function changeSignUpVisible() {
   return function(dispatch) {
     dispatch({ type: SIGNUP_VISIBLE })
+  }
+}
+
+export function getAllUsers(authHeader) {
+  return function(dispatch) {
+    axios.get(`${BudgetManagetAPI}/api/v1/users`, {
+      headers: {
+        'Authorization': authHeader
+      }
+    }).then(({ data }) => {
+      dispatch({
+        type: GET_USERS,
+        payload: data
+      })
+    });
   }
 }

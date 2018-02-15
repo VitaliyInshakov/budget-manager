@@ -2,7 +2,8 @@ import {
   AUTH_USER,
   LOGIN_PASSWORD_VISIBLE,
   SIGNUP_VISIBLE,
-  SIGNUP_PASSWORD_VISIBLE
+  SIGNUP_PASSWORD_VISIBLE,
+  GET_USERS
 } from '../actions/actionTypes';
 
 export default function(state = {}, action) {
@@ -21,6 +22,8 @@ export default function(state = {}, action) {
       newState.signUpPasswordVisible = !newState.signUpPasswordVisible;
       return newState;
     }
+    case GET_USERS:
+      return {...state, users: action.payload}
     default:
       return state;
   }
