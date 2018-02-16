@@ -3,6 +3,7 @@
 
 body {
   background: url('./images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
   &:after {
     content: '';
     position: fixed;
@@ -13,6 +14,9 @@ body {
     background-color: $background-tint;
     opacity: .3;
     z-index: -1;
+  }
+  .application {
+    background: none;
   }
 }
 
@@ -26,11 +30,7 @@ body {
 }
 
 .signup-form {
-    background-color: $background-color;
-    padding: 15px;
-    margin: 45px auto;
-    min-width: 272px;
-    max-width: 320px;
+   @extend .auth-form;
     animation: slideInFromLeft 1s forwards ease;
 }
 
