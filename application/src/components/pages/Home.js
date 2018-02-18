@@ -1,6 +1,7 @@
 import React, { Component } from  'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
+import Header from '../Header';
 
 class Home extends Component {
   componentWillMount(){
@@ -10,7 +11,8 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container container-home">
+        <Header />
         <h3>Hi! this is our App's Home</h3>
         <ul>
           {this.props.users

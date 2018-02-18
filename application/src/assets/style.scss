@@ -61,3 +61,17 @@ body {
     color: inherit !important;
   }
 }
+
+.container-home {
+  padding: 16px;
+}
+.header-container {
+  background-color: $background-color;
+  margin: 0 auto;
+  padding: 0 15px;
+  min-width: 272px;
+
+  .btn {
+    margin-top: 15px;
+  }
+}

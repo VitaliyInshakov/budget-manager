@@ -32,7 +32,8 @@
     transform: translateX(0); } }
 
 body {
-  background: url("./images/background.jpg") no-repeat center center fixed; }
+  background: url("./images/background.jpg") no-repeat center center fixed;
+  background-size: cover; }
   body:after {
     content: '';
     position: fixed;
@@ -43,8 +44,10 @@ body {
     background-color: #1734c1;
     opacity: .3;
     z-index: -1; }
+  body .application {
+    background: none; }
 
-.auth-form {
+.auth-form, .signup-form {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 15px;
   margin: 45px auto;
@@ -53,11 +56,6 @@ body {
   animation: bounceIn 1s forwards ease; }
 
 .signup-form {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 15px;
-  margin: 45px auto;
-  min-width: 272px;
-  max-width: 320px;
   animation: slideInFromLeft 1s forwards ease; }
 
 .light-blue--text.text--lighten-1 {
@@ -83,3 +81,14 @@ body {
   margin: 6px 0 !important; }
   .btn--block span {
     color: inherit !important; }
+
+.container-home {
+  padding: 16px; }
+
+.header-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  padding: 0 15px;
+  min-width: 272px; }
+  .header-container .btn {
+    margin-top: 15px; }
