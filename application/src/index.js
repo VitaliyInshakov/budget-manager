@@ -4,11 +4,13 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import store from './store/Store'
 import App from './App';
-import { AUTH_USER } from './actions/actionTypes';
+import { AUTH_USER, UNAUTH_USER } from './actions/actionTypes';
 
 const token = localStorage.getItem('token');
 if(token) {
   store.dispatch({ type: AUTH_USER });
+} else {
+  store.dispatch({ type: UNAUTH_USER });
 }
 
 ReactDOM.render(

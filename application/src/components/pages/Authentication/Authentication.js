@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/index';
 import SignUpForm from './SignUpForm';
@@ -65,10 +66,14 @@ class Authentication extends Component {
         </form>
         {
           this.props.signUpVisible
-          ? 
-            <SignUpForm />
+          ? <SignUpForm />
           : null
         }
+        <Snackbar
+          open={!!this.props.errorMessage}
+          message={this.props.errorMessage}
+          autoHideDuration={6000}
+        />
       </div>
     )
   }
@@ -89,7 +94,8 @@ function validate(formProps) {
 function mapStateToProps(state) {
   return {
     loginPasswordVisible: state.auth.loginPasswordVisible,
-    signUpVisible: state.auth.signUpVisible
+    signUpVisible: state.auth.signUpVisible,
+    errorMessage: state.auth.error
   }
 }
 
