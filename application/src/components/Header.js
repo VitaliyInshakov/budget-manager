@@ -3,12 +3,14 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 
 class Header extends Component {
   renderSelectList() {
     const statusItem = ['All', 'Approved', 'Denied', 'Waiting', 'Writing', 'Editing'];
     return (
-      <SelectField hintText="Status">
+      <SelectField hintText="Status" className="select-field">
         {
           statusItem.map((item, idx) => {
             return <MenuItem key={idx} value={idx} primaryText={item} />
@@ -17,6 +19,11 @@ class Header extends Component {
       </SelectField>
     )
   }
+
+  handleSubmitSignout () {
+    this.props.signout('/login');
+  }
+  
   render() {
     return (
       <div>
@@ -26,6 +33,7 @@ class Header extends Component {
               <TextField
                 hintText=''
                 floatingLabelText="Search"
+                className="text--field"
               />
               <i className="material-icons input-group__append-icon">search</i>
             </div>
@@ -43,9 +51,10 @@ class Header extends Component {
             </div>
             <div className="col-12 offset-lg-1 col-lg-1">
               <RaisedButton
-                  className="btn--block bg-danger text-white"
+                  className="btn--block red--text"
                   label="Sign out"
                   primary={true}
+                  onClick={this.props.signout}
                 />
             </div>
           </div>
@@ -55,4 +64,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default connect(null, actions)(Header);

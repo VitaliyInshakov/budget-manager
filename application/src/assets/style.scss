@@ -71,7 +71,58 @@ body {
   padding: 0 15px;
   min-width: 272px;
 
-  .btn {
-    margin-top: 15px;
+  >div.row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .text--field {
+    width: 100% !important;
+
+    label {
+      top: 24px !important;
+    }
+    input {
+      margin-top: 0 !important;
+    }
+    hr {
+      bottom: 22px !important;
+    }
+  }
+
+  i.input-group__append-icon{
+    padding-top: 0;
+  }
+
+  .btn--block {
+    margin-top: 15px !important;
+  }
+
+  .select-field {
+    height: 58px !important;
+    width: 100% !important;
+    
+    >div {
+      color: inherit !important;
+    }
+
+    button {
+      top: 10px !important;
+      fill: #29b6f6!important;
+    }
+  }
+  div.col-12.offset-lg-1.col-lg-1 {
+    padding-right: 0;
+    padding-left: 0;
+
+    .btn--block.red--text>button>div>div {
+      display: flex;
+      justify-content: center;
+      background-color: #ef5350!important;
+
+      span {
+        padding: 0 !important;
+        color: #fff!important;
+      }
+    }
   }
 }

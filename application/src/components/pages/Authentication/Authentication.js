@@ -71,7 +71,7 @@ class Authentication extends Component {
         }
         <Snackbar
           open={!!this.props.errorMessage}
-          message={this.props.errorMessage}
+          message={this.props.errorMessage ? this.props.errorMessage : ''}
           autoHideDuration={6000}
         />
       </div>

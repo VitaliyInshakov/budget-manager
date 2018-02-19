@@ -31,7 +31,16 @@ export function signup(credentials, redirect) {
   return function(dispatch) {
     axios.post(`${BudgetManagetAPI}/api/v1/signup`, credentials)
       .then(() => {
-        authenticate(credentials, redirect);
+        axios.post(`${BudgetManagetAPI}/api/v1/auth`, credentials)
+        .then((response) => {
+          dispatch({ type: AUTH_USER });
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user_id', response.data.user._id);
+          if(redirect) history.push(redirect);
+        })
+        .catch((response) => {
+          dispatch(authError(response.data.message));
+        })
       })
       .catch((response) => {
         dispatch(authError(response.data.message));
@@ -40,10 +49,12 @@ export function signup(credentials, redirect) {
 }
 
 export function signout(redirect) {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user_id');
-  return { type: UNAUTH_USER }
-  if(redirect) history.push(redirect);
+  return function(dispatch) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
+    dispatch({ type: UNAUTH_USER });
+    if(redirect) history.push(redirect);
+  }
 }
 
 export function authError(error) {

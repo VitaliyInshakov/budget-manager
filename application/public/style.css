@@ -90,5 +90,36 @@ body {
   margin: 0 auto;
   padding: 0 15px;
   min-width: 272px; }
-  .header-container .btn {
-    margin-top: 15px; }
+  .header-container > div.row {
+    margin-left: 0;
+    margin-right: 0; }
+  .header-container .text--field {
+    width: 100% !important; }
+    .header-container .text--field label {
+      top: 24px !important; }
+    .header-container .text--field input {
+      margin-top: 0 !important; }
+    .header-container .text--field hr {
+      bottom: 22px !important; }
+  .header-container i.input-group__append-icon {
+    padding-top: 0; }
+  .header-container .btn--block {
+    margin-top: 15px !important; }
+  .header-container .select-field {
+    height: 58px !important;
+    width: 100% !important; }
+    .header-container .select-field > div {
+      color: inherit !important; }
+    .header-container .select-field button {
+      top: 10px !important;
+      fill: #29b6f6 !important; }
+  .header-container div.col-12.offset-lg-1.col-lg-1 {
+    padding-right: 0;
+    padding-left: 0; }
+    .header-container div.col-12.offset-lg-1.col-lg-1 .btn--block.red--text > button > div > div {
+      display: flex;
+      justify-content: center;
+      background-color: #ef5350 !important; }
+      .header-container div.col-12.offset-lg-1.col-lg-1 .btn--block.red--text > button > div > div span {
+        padding: 0 !important;
+        color: #fff !important; }
