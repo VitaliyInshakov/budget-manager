@@ -10,8 +10,7 @@ const Schema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  clients: [{}]
+  }
 });
 
 Schema.pre('save', function(next){
