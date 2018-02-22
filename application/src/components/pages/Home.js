@@ -2,26 +2,33 @@ import React, { Component } from  'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import Header from '../Header';
+import BudgetList from '../Budget/BudgetList';
+import BudgetListHeader from '../Budget/BudgetListHeader';
+import BudgetListBody from '../Budget/BudgetListBody';
 
 class Home extends Component {
   componentWillMount(){
     const authHeader = `Bearer ${localStorage.getItem('token')}`
-    this.props.getAllUsers(authHeader);
+    this.props.getAllBudgets(authHeader);
   }
 
   render() {
     return (
       <div className="container container-home">
-        <Header />
-        <h3>Hi! this is our App's Home</h3>
-        <ul>
-          {this.props.users
-            ? this.props.users.map(user => {
-                return <li key={user.username}>{user.username}</li>
-              })
-            : null
-          }
-        </ul>
+        <main className="home-page">
+          <Header />
+
+          <div className="home">
+            <h4 className="text-white text-center my-0">
+              Focus Budget Manager
+            </h4>
+
+            <BudgetList>
+              <BudgetListHeader />
+              <BudgetListBody />
+            </BudgetList>
+          </div>
+        </main>
       </div>
     )
   }
@@ -29,7 +36,7 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.auth.users
+    budgets: state.budget.budgets
   }
 }
 export default connect(mapStateToProps, actions)(Home);

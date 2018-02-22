@@ -6,7 +6,7 @@ import {
   LOGIN_PASSWORD_VISIBLE,
   SIGNUP_VISIBLE,
   SIGNUP_PASSWORD_VISIBLE,
-  GET_USERS
+  GET_BUDGETS
 } from './actionTypes';
 import { history } from '../store/Store';
 
@@ -82,15 +82,14 @@ export function changeSignUpVisible() {
   }
 }
 
-export function getAllUsers(authHeader) {
+export function getAllBudgets(authHeader) {
   return function(dispatch) {
-    axios.get(`${BudgetManagetAPI}/api/v1/users`, {
-      headers: {
-        'Authorization': authHeader
-      }
+    axios.get(`${BudgetManagetAPI}/api/v1/budget`, {
+      headers: { 'Authorization': authHeader },
+      params: { user_id: localStorage.getItem('user_id') }
     }).then(({ data }) => {
       dispatch({
-        type: GET_USERS,
+        type: GET_BUDGETS,
         payload: data
       })
     });
