@@ -1,7 +1,7 @@
-import react from 'react';
+import React from 'react';
 
 const BudgetList = (props) => (
-  <section className="budget-list-container">
+  <section className="list-container">
     {props.children}
   </section>
 )

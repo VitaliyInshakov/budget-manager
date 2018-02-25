@@ -10,7 +10,7 @@ class Header extends Component {
   renderSelectList() {
     const statusItem = ['All', 'Approved', 'Denied', 'Waiting', 'Writing', 'Editing'];
     return (
-      <SelectField hintText="Status" className="select-field">
+      <SelectField hintText="Status" className={`select-field ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}>
         {
           statusItem.map((item, idx) => {
             return <MenuItem key={idx} value={idx} primaryText={item} />
@@ -28,20 +28,21 @@ class Header extends Component {
     return (
       <div>
         <header className="header-container">
-          <div className="row">
+          <div className={`row ${this.props.budgetsVisible ? 'budgets-header' : 'clients-header'}`}>
             <div className="col-12 col-lg-5 light-blue--text text--lighten-1">
               <TextField
                 hintText=''
                 floatingLabelText="Search"
-                className="text--field"
+                className={`text--field ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}
               />
               <i className="material-icons input-group__append-icon">search</i>
             </div>
             <div className="col-12 offset-lg-1 col-lg-1">
               <RaisedButton
-                className="btn--block"
-                label="Clients"
+                className={`btn--block ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}
+                label={this.props.budgetsVisible ? "Clients" : "Budgets"}
                 primary={true}
+                onClick={this.props.handleToggleVisibleData}
               />
             </div>
             <div className="col-12 offset-lg-1 col-lg-2 light-blue--text text--lighten-1">

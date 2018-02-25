@@ -1,11 +1,15 @@
 import React from 'react';
 
-const BudgetListHeader = () => (
-  <header class="budget-header">
-    <div className="text-white md-budget-header">Client</div>
-    <div className="text-white md-budget-header">Title</div>
-    <div className="text-white md-budget-header">Status</div>
-    <div className="text-white md-budget-header">Actions</div>
+const BudgetListHeader = (props) => (
+  <header className="list-header">
+    {
+      props.headers
+      ? props.headers.map(header => {
+          return <div key={header} className="text-white md-list-header">{header}</div>
+        }
+      )
+      : null
+    }
   </header>
 )
 

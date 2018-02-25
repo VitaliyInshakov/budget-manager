@@ -2,32 +2,50 @@ import React, { Component } from  'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 import Header from '../Header';
-import BudgetList from '../Budget/BudgetList';
-import BudgetListHeader from '../Budget/BudgetListHeader';
-import BudgetListBody from '../Budget/BudgetListBody';
+import List from '../List/List';
+import ListHeader from '../List/ListHeader';
+import ListBody from '../List/ListBody';
+import Snackbar from 'material-ui/Snackbar';
+import store from '../../store/Store.js';
+import { TOGGLE_VISIBLE_DATA } from '../../actions/actionTypes';
 
 class Home extends Component {
   componentWillMount(){
     const authHeader = `Bearer ${localStorage.getItem('token')}`
     this.props.getAllBudgets(authHeader);
+    this.props.getAllClients(authHeader);
   }
 
   render() {
     return (
       <div className="container container-home">
         <main className="home-page">
-          <Header />
+          <Header
+            budgetsVisible={this.props.budgetsVisible}
+            handleToggleVisibleData={() => store.dispatch({ type: TOGGLE_VISIBLE_DATA })}
+          />
 
           <div className="home">
             <h4 className="text-white text-center my-0">
               Focus Budget Manager
             </h4>
 
-            <BudgetList>
-              <BudgetListHeader />
-              <BudgetListBody />
-            </BudgetList>
+            <List>
+              <ListHeader
+                headers={this.props.budgetsVisible ? this.props.budgetHeaders : this.props.clientHeaders}
+              />
+              <ListBody
+                data={this.props.budgetsVisible ? this.props.budgets : this.props.clients}
+                budgetsVisible={this.props.budgetsVisible}
+              />
+            </List>
           </div>
+
+          <Snackbar
+            open={!!this.props.errorMessage}
+            message={this.props.errorMessage ? this.props.errorMessage : ''}
+            autoHideDuration={6000}
+          />
         </main>
       </div>
     )
@@ -36,7 +54,12 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    budgets: state.budget.budgets
+    errorMessage: state.budget.error,
+    budgets: state.budget.budgets,
+    clients: state.budget.clients,
+    budgetsVisible: !state.budget.budgetsVisible,
+    budgetHeaders: ['Client', 'Title', 'Status', 'Actions'],
+    clientHeaders: ['Client', 'Email', 'Phone', 'Actions']
   }
 }
 export default connect(mapStateToProps, actions)(Home);

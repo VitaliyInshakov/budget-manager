@@ -6,7 +6,8 @@ import {
   LOGIN_PASSWORD_VISIBLE,
   SIGNUP_VISIBLE,
   SIGNUP_PASSWORD_VISIBLE,
-  GET_BUDGETS
+  GET_BUDGETS,
+  GET_CLIENTS
 } from './actionTypes';
 import { history } from '../store/Store';
 
@@ -21,8 +22,8 @@ export function authenticate(credentials, redirect) {
         localStorage.setItem('user_id', response.data.user._id);
         if(redirect) history.push(redirect);
       })
-      .catch((response) => {
-        dispatch(authError(response.data.message));
+      .catch((error) => {
+        dispatch(authError(error.response.data.message));
       })
   }
 }
@@ -38,8 +39,8 @@ export function signup(credentials, redirect) {
           localStorage.setItem('user_id', response.data.user._id);
           if(redirect) history.push(redirect);
         })
-        .catch((response) => {
-          dispatch(authError(response.data.message));
+        .catch((error) => {
+          dispatch(authError(error.response.data.message));
         })
       })
       .catch((response) => {
@@ -90,8 +91,36 @@ export function getAllBudgets(authHeader) {
     }).then(({ data }) => {
       dispatch({
         type: GET_BUDGETS,
-        payload: data
+        payload: dataParser(data, '_id', 'client', 'title', 'state')
       })
+    }).catch((error) => {
+      dispatch(authError(error.response.data.message));
+    });
+  }
+}
+
+export function dataParser(targetedArray, ...options) {
+  let parsedData = [];
+  targetedArray.forEach(item => {
+    let parsedItem = {};
+    options.forEach(option => (parsedItem[option] = item[option]));
+    parsedData.push(parsedItem);
+  });
+  return parsedData;
+}
+
+export function getAllClients(authHeader) {
+  return function(dispatch) {
+    axios.get(`${BudgetManagetAPI}/api/v1/client`, {
+      headers: { 'Authorization': authHeader },
+      params: { user_id: localStorage.getItem('user_id') }
+    }).then(({ data }) => {
+      dispatch({
+        type: GET_CLIENTS,
+        payload: dataParser(data, '_id', 'client', 'email', 'phone')
+      })
+    }).catch((error) => {
+      dispatch(authError(error.response.data.message));
     });
   }
 }
