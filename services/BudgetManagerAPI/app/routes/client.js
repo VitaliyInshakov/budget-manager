@@ -5,7 +5,7 @@ const passport = require('passport'),
 module.exports = (app) => {
   const api = app.BudgetManagerAPI.app.api.client;
 
-  app.route('api/v1/client')
+  app.route('/api/v1/client')
       .post(passport.authenticate('jwt', config.session), api.store(models.User, models.Client, app.get('budgetsecret')))
       .get(passport.authenticate('jwt', config.session), api.getAll(models.User, models.Client, app.get('budgetsecret')))
 }
