@@ -7,3 +7,4 @@ export const SIGNUP_VISIBLE = 'SIGNUP_VISIBLE';
 export const GET_BUDGETS = 'GET_BUDGETS';
 export const GET_CLIENTS = 'GET_CLIENTS';
 export const TOGGLE_VISIBLE_DATA = 'TOGGLE_VISIBLE_DATA';
+export const ACTIVE_FAB = 'ACTIVE_FAB';

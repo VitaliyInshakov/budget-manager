@@ -5,9 +5,10 @@ import Header from '../Header';
 import List from '../List/List';
 import ListHeader from '../List/ListHeader';
 import ListBody from '../List/ListBody';
+import FAB from './FAB';
 import Snackbar from 'material-ui/Snackbar';
 import store from '../../store/Store.js';
-import { TOGGLE_VISIBLE_DATA } from '../../actions/actionTypes';
+import { TOGGLE_VISIBLE_DATA, ACTIVE_FAB } from '../../actions/actionTypes';
 
 class Home extends Component {
   componentWillMount(){
@@ -46,6 +47,11 @@ class Home extends Component {
             message={this.props.errorMessage ? this.props.errorMessage : ''}
             autoHideDuration={6000}
           />
+
+          <FAB
+            fab={this.props.fab}
+            handleClickActionButton={() => store.dispatch({ type: ACTIVE_FAB })}
+          />
         </main>
       </div>
     )
@@ -58,6 +64,7 @@ function mapStateToProps(state) {
     budgets: state.budget.budgets,
     clients: state.budget.clients,
     budgetsVisible: !state.budget.budgetsVisible,
+    fab: state.budget.fab,
     budgetHeaders: ['Client', 'Title', 'Status', 'Actions'],
     clientHeaders: ['Client', 'Email', 'Phone', 'Actions']
   }

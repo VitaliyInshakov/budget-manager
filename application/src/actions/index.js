@@ -43,8 +43,8 @@ export function signup(credentials, redirect) {
           dispatch(authError(error.response.data.message));
         })
       })
-      .catch((response) => {
-        dispatch(authError(response.data.message));
+      .catch((error) => {
+        dispatch(authError(error.response.data.message));
       })
   }
 }

@@ -5,19 +5,19 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/index';
 
-class SignUpForm extends Component {
-  renderTextField({input, label, meta: {touched, error}, ...custom}) {
-    return (
-      <TextField
-        hintText=''
-        floatingLabelText={label}
-        errorText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
-  }
+const renderTextField = ({input, label, meta: {touched, error}, ...custom}) => {
+  return (
+    <TextField
+      hintText=''
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
+}
 
+class SignUpForm extends Component {
   handleSubmitSignUp(formProps) {
     this.props.signup(formProps, '/');
   }
@@ -31,7 +31,7 @@ class SignUpForm extends Component {
           <i className="material-icons input-group__prepend-icon">account_box</i>
           <Field
             name='username'
-            component={this.renderTextField.bind(this)}
+            component={renderTextField}
             label='Username*'
             />
         </div>
@@ -39,7 +39,7 @@ class SignUpForm extends Component {
           <i className="material-icons input-group__prepend-icon">lock</i>
           <Field
             name='password'
-            component={this.renderTextField.bind(this)}
+            component={renderTextField}
             label='Password*'
             type={this.props.signUpPasswordVisible  ? 'text' : 'password'}
           />

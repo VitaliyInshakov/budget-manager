@@ -8,19 +8,19 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions/index';
 import SignUpForm from './SignUpForm';
 
-class Authentication extends Component {
-  renderTextField({input, label, meta: {touched, error}, ...custom}) {
-    return (
-      <TextField
-        hintText=''
-        floatingLabelText={label}
-        errorText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
-  }
+const renderTextField = ({input, label, meta: {touched, error}, ...custom}) => {
+  return (
+    <TextField
+      hintText=''
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
+}
 
+class Authentication extends Component {
   handleSubmitAuthentication(formProps) {
     this.props.authenticate(formProps, '/');
   }
@@ -35,7 +35,7 @@ class Authentication extends Component {
             <i className="material-icons input-group__prepend-icon">account_box</i>
             <Field
               name='username'
-              component={this.renderTextField.bind(this)}
+              component={renderTextField}
               label='Username*'
               />
           </div>
@@ -43,7 +43,7 @@ class Authentication extends Component {
             <i className="material-icons input-group__prepend-icon">lock</i>
             <Field
               name='password'
-              component={this.renderTextField.bind(this)}
+              component={renderTextField}
               label='Password*'
               type={this.props.loginPasswordVisible ? 'text' : 'password'}
             />
