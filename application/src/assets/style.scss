@@ -268,3 +268,161 @@ body {
     }
   }
 }
+
+.speed-dial--right {
+  right: 16px;
+}
+.speed-dial--fixed {
+  position: fixed;
+}
+.speed-dial--bottom {
+  bottom: 16px;
+}
+.btn--floating {
+  color: #fff;
+}
+.red.lighten-1 {
+  background-color: #ef5350!important;
+  border-color: #ef5350!important;
+}
+.btn--floating {
+  border-radius: 50%;
+  min-width: 0;
+  height: 56px;
+  width: 56px;
+  padding: 0;
+  z-index: 4;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px rgba(0,0,0,.14), 0 1px 18px rgba(0,0,0,.12);
+}
+.btn--raised {
+  will-change: box-shadow;
+  box-shadow: 0 1px 5px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+  &:focus {
+    box-shadow: none;
+  }
+  &:hover {
+    background-color: lighten(#ef5350, 5%) !important;
+  }
+}
+.btn--floating .btn__content {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+}
+.btn__content {
+  align-items: center;
+  border-radius: inherit;
+  color: inherit;
+  display: flex;
+  height: 100%;
+  flex: 1 0 auto;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 16px;
+  transition: .3s cubic-bezier(.25,.8,.5,1);
+  white-space: nowrap;
+}
+.btn .btn__content .icon {
+  color: inherit;
+}
+.btn--floating .icon {
+  height: 24px;
+  width: 24px;
+}
+.icon {
+  align-items: center;
+  display: inline-flex;
+  font-size: 24px;
+  justify-content: center;
+  line-height: 1;
+  transition: .3s cubic-bezier(.25,.8,.5,1);
+  vertical-align: middle;
+}
+.btn--floating .icon:not(:only-of-type):last-of-type {
+  opacity: 0;
+  position: absolute;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  left: calc(50% - 12px);
+  top: calc(50% - 12px);
+}
+.btn--floating.btn--active .icon:not(:only-of-type):first-of-type {
+  opacity: 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: -1150%;
+  top: -1150%;
+}
+.btn--floating.btn--active .icon:not(:only-of-type):last-of-type {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}
+.speed-dial--direction-top .speed-dial__list {
+  flex-direction: column-reverse;
+  bottom: 100%;
+}
+.speed-dial--direction-bottom .speed-dial__list, .speed-dial--direction-top .speed-dial__list {
+  left: 0;
+  width: 100%;
+}
+.speed-dial__list {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+.my-tooltip {
+  position: relative;
+}
+.my-tooltip::after {
+  background: #616161;
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-tooltip);
+  font-size: 12px;
+  opacity: 0;
+  top: 12px;
+  right: 105%;
+  white-space: nowrap;
+  padding: 5px 8px;
+  position: absolute;
+  visibility: hidden;
+  text-transform: none;
+  transition: .15s cubic-bezier(.25,.8,.5,1);
+  width: auto;
+  box-shadow: 0 1px 5px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+}
+.my-tooltip:hover::after {
+	opacity: 1;
+	visibility: visible;
+}
+.speed-dial__list .btn:first-child {
+  transition-delay: .05s;
+}
+.btn--floating.btn--small {
+  height: 40px;
+  width: 40px;
+}
+.btn--small {
+  font-size: 13px;
+  height: 28px;
+  margin: 6px 8px;
+
+  &.light-blue.lighten-1 {
+    background-color: #29b6f6!important;
+  }
+  &.green.lighten-1 {
+    background-color: #66bb6a!important;
+  }
+}
+.btn--floating.btn--small.btn--floating .icon {
+  left: calc(50% - 9px);
+  top: calc(50% - 9px);
+}
+
+.btn--floating.btn--small .icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
