@@ -13,6 +13,10 @@ const Schema = mongoose.Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   total_price: {
     type: Number,
     required: true
