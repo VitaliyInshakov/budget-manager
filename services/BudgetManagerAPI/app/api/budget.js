@@ -11,6 +11,7 @@ api.store = (User, Budget, Client, Token) => (req, res) => {
           user_id: req.body.client_id,
           client: client.name,
           state: req.body.state,
+          description: req.body.description,
           title: req.body.title,
           total_price: req.body.total_price,
           items: req.body.items
@@ -70,7 +71,7 @@ api.edit = (User, Budget, Client, Token) => (req, res) => {
       if(error) res.status(400).json(error);
 
       if(user) {
-        Budget.findOne({_id: req.body._id}, req.body, (error, budget) => {
+        Budget.findOneAndUpdate({_id: req.body._id}, req.body, (error, budget) => {
           if(error) res.status(400).json(error);
           res.status(200).json(budget);
         });
