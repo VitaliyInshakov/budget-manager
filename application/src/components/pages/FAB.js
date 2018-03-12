@@ -17,7 +17,10 @@ const FAB = (props) => (
       ? <div className="speed-dial__list">
           <span className="my-tooltip tooltip--left" data-tooltip="Add new Budget">
             <span>
-              <button className="btn btn--floating btn-raised btn--small light-blue lighten-1">
+              <button
+                className="btn btn--floating btn-raised btn--small light-blue lighten-1"
+                onClick={props.handleClickNewBudget}
+              >
                 <div className="btn__content">
                   <i className="material-icons icon">assignment</i>
                 </div>
@@ -26,9 +29,36 @@ const FAB = (props) => (
           </span>
           <span className="my-tooltip tooltip--left" data-tooltip="Add new Client">
             <span>
-              <button className="btn btn--floating btn-raised btn--small green lighten-1">
+              <button
+                className="btn btn--floating btn-raised btn--small green lighten-1"
+                onClick={props.handleClickNewClient}
+              >
                 <div className="btn__content">
                   <i className="material-icons icon">account_circle</i>
+                </div>
+              </button>
+            </span>
+          </span>
+          <span className="my-tooltip tooltip--left" data-tooltip="List Budgets">
+            <span>
+              <button
+                className="btn btn--floating btn-raised btn--small purple lighten-2"
+                onClick={props.handleClickListBudgets}
+              >
+                <div className="btn__content">
+                  <i className="material-icons icon">assessment</i>
+                </div>
+              </button>
+            </span>
+          </span>
+          <span className="my-tooltip tooltip--left" data-tooltip="List Clients">
+            <span>
+              <button
+                className="btn btn--floating btn-raised btn--small deep-orange lighten-2"
+                onClick={props.handleClickListClients}
+              >
+                <div className="btn__content">
+                  <i className="material-icons icon">supervisor_account</i>
                 </div>
               </button>
             </span>
