@@ -84,7 +84,7 @@ api.edit = (User, Budget, Client, Token) => (req, res) => {
 
 api.getByState = (User, Budget, Client, Token) => (req, res) => {
   if(Token) {
-    user.findOne({id: req.query.user_id}, (error, user) => {
+    User.findOne({id: req.query.user_id}, (error, user) => {
       if(error) res.status(400).json(error);
 
       if(user) {
