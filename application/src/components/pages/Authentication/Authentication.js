@@ -95,7 +95,7 @@ function mapStateToProps(state) {
   return {
     loginPasswordVisible: state.auth.loginPasswordVisible,
     signUpVisible: state.auth.signUpVisible,
-    errorMessage: state.auth.error
+    errorMessage: state.home.message
   }
 }
 
