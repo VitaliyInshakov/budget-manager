@@ -7,13 +7,22 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 
 class Header extends Component {
+  handleChangeSelectField(event, index, value) {
+    this.props.selectState(value);
+  }
+
   renderSelectList() {
-    const statusItem = ['All', 'Approved', 'Denied', 'Waiting', 'Writing', 'Editing'];
+    const statusItem = ['all', 'approved', 'denied', 'waiting', 'writing', 'editing'];
     return (
-      <SelectField hintText="Status" className={`select-field ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}>
+      <SelectField 
+        hintText="Status"
+        value={this.props.stateField}
+        className={`select-field ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}
+        onChange={this.handleChangeSelectField.bind(this)}
+      >
         {
           statusItem.map((item, idx) => {
-            return <MenuItem key={idx} value={idx} primaryText={item} />
+            return <MenuItem key={idx} value={item} primaryText={item} />
           })
         }
       </SelectField>
@@ -24,6 +33,10 @@ class Header extends Component {
     this.props.signout('/login');
   }
   
+  changeSearchField(e) {
+    this.props.watchSearch(e.target.value);
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +46,9 @@ class Header extends Component {
               <TextField
                 hintText=''
                 floatingLabelText="Search"
+                defaultValue={this.props.search}
                 className={`text--field ${this.props.budgetsVisible ? 'light-blue lighten-1' : 'green lighten-1'}`}
+                onChange={this.changeSearchField.bind(this)}              
               />
               <i className="material-icons input-group__append-icon">search</i>
             </div>
@@ -55,7 +70,7 @@ class Header extends Component {
                   className="btn--block red--text"
                   label="Sign out"
                   primary={true}
-                  onClick={this.props.signout}
+                  onClick={this.handleSubmitSignout.bind(this)}
                 />
             </div>
           </div>
@@ -65,4 +80,9 @@ class Header extends Component {
   }
 }
 
-export default connect(null, actions)(Header);
+function mapStateToProps(state) {
+  return {
+    stateField: state.home.stateField
+  }
+}
+export default connect(mapStateToProps, actions)(Header);
