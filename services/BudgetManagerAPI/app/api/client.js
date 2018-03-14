@@ -58,7 +58,7 @@ api.edit = (User, Client, Token) => (req, res) => {
       if(error) return res.status(400).json(error);
 
       if(user) {
-        Client.findOneAndUpdate({_id: req.body._id}, (error, client) => {
+        Client.findOneAndUpdate({_id: req.body._id}, req.body, (error, client) => {
           if(error) return res.status(400).json(error);
           res.status(200).json(client);
         });
