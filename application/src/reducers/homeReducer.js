@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
     case GET_BUDGETS_BY_STATE:
       return {...state, budgets: action.payload}
     case GET_BUDGET:
-      return {...state, budget: action.payload, listPage: false, budgetEdit: true, budgetCreation: false, editPage: true }
+      return {...state, budget: action.payload, listPage: false, budgetEdit: true, budgetCreation: false, editPage: true, createPage: true }
     case GET_CLIENTS:
       return {...state, clients: action.payload}
     case GET_CLIENT:
@@ -71,9 +71,9 @@ export default function(state = initialState, action) {
     case SHOW_LIST_CLIENTS:
       return {...state, budgetCreation: false, listPage: true, budgetsVisible: false, createPage: false } 
     case UPDATE_BUDGET:
-      return {...state, budgetCreation: false, listPage: true, budgetsVisible: true, createPage: false }
+      return {...state, message: action.payload, budgetCreation: false, listPage: true, budgetsVisible: true, createPage: false }
     case UPDATE_CLIENT:
-      return {...state, budgetCreation: false, listPage: true, budgetsVisible: false, createPage: false  }
+      return {...state, message: action.payload, budgetCreation: false, listPage: true, budgetsVisible: false, createPage: false }
     default:
       return state;
   }

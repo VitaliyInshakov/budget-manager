@@ -2,7 +2,8 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   PARSE_BUDGET,
-  SAVE_CLIENT
+  SAVE_CLIENT,
+  UPDATE_FIELD
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -53,7 +54,7 @@ export default function(state = initialState, action) {
     case PARSE_BUDGET: {
       const newState = Object.assign({}, state);
       for (let key in action.payload) {
-        if(key !== 'total' && key !== 'items') {
+        if(key !== 'total_price' && key !== 'items') {
           newState.budget[key] = action.payload[key];
         }
         if (key === 'items') {
@@ -74,6 +75,12 @@ export default function(state = initialState, action) {
     }
     case SAVE_CLIENT:
       return {...state, client: {...state.client, name: action.payload.name, email: action.payload.email, phone: action.payload.phone }}
+    case UPDATE_FIELD: {
+      const newState = Object.assign({}, state);
+      const { field, index, value } = action;
+      index !==null ? newState.budget.items[index][field] = value : newState.budget[field] = value;
+      return newState;
+    }
     default:
       return state;
   }
