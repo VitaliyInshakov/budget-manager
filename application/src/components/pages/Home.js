@@ -29,7 +29,7 @@ class Home extends Component {
   handleChangeSearchField(search) {
     if(search !== null || search !== "") {
       const searchTerm = search.toLowerCase();
-      const results = this.props.clients.filter(client => client.name.toString().toLowerCase().indexOf(searchTerm) > -1);
+      const results = this.props.budgets.filter(budget => budget.client.toString().toLowerCase().indexOf(searchTerm) > -1);
       this.props.changeSearchField(results);
     } else {
       this.props.changeSearchField(null);
@@ -82,6 +82,7 @@ class Home extends Component {
                 budgetEdit={this.props.budgetEdit}
                 editPage={this.props.editPage}
                 clients={this.props.clients}
+                selectedBudget={this.props.budget}
                 budgetsVisible={this.props.budgetsVisible}
                 saveBudget={this.props.saveBudget}
                 saveClient={this.props.saveClient}
