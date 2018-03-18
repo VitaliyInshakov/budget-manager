@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const api = {};
 
 api.store = (User, Budget, Client, Token) => (req, res) => {
-  if(Token) {
-    Client.findOne({ _id: req.body.client.id }, (error, client) => {
-      if(error) res.status(400).json(error);
-      if(client) {
+  if (Token) {
+    Client.findOne({ _id: req.body.client }, (error, client) => {
+      if (error) res.status(400).json(error);
+
+      if (client) {
         const budget = new Budget({
-          client_id: req.body.client_id,
-          user_id: req.body.client_id,
+          client_id: req.body.client,
+          user_id: req.query.user_id,
           client: client.name,
           state: req.body.state,
           description: req.body.description,
@@ -18,14 +19,15 @@ api.store = (User, Budget, Client, Token) => (req, res) => {
         });
 
         budget.save(error => {
-          if(error) res.status(400).json(error);
-          res.status(200).json({ success: true, message: 'Budget registered successfully'});
-        });
+          if (error) return res.status(400).json(error)
+          res.status(200).json({ success: true, message: "Budget registered successfully" })
+        })
       } else {
-        res.status(400).json({ success: false, message: 'Invalid client' });
+        res.status(400).json({ success: false, message: "Invalid client" })
       }
-    });
-  } else res.status(403).send({ success: false, message: 'Unauthorized' });
+    })
+
+  } else return res.status(401).send({ success: false, message: 'Unauthorized' });
 }
 
 api.getAll = (User, Budget, Token) => (req, res) => {
@@ -45,7 +47,7 @@ api.getAllFromClient = (User, Budget, Token) => (req, res) => {
       res.status(200).json(budget);
       return true
     });
-  } else return res.status(403).send({ success: false, message: 'Unauthorized' });
+  } else return res.status(401).send({ success: false, message: 'Unauthorized' });
 }
 
 api.index = (User, Budget, Client, Token) => (req, res) => {
@@ -84,7 +86,7 @@ api.edit = (User, Budget, Client, Token) => (req, res) => {
 
 api.getByState = (User, Budget, Client, Token) => (req, res) => {
   if(Token) {
-    User.findOne({id: req.query.user_id}, (error, user) => {
+    User.findOne({ _id: req.query.user_id}, (error, user) => {
       if(error) res.status(400).json(error);
 
       if(user) {

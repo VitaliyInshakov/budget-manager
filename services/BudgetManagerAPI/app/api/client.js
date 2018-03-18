@@ -8,7 +8,7 @@ api.store = (User, Client, Token) => (req, res) => {
 
       if(user) {
         const client = new Client({
-          user_id: req.body.user_id,
+          user_id: req.query.user_id,
           name: req.body.name,
           email: req.body.email,
           phone: req.body.phone,
