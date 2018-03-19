@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
+import cookie from 'react-cookies';
 
 const renderTextField = ({input, label}) => {
   return (
@@ -18,7 +19,7 @@ const renderTextField = ({input, label}) => {
 
 class ClientCreation extends Component {
   handleClickSaveClient(formProps) {
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     this.props.saveClient(authHeader, formProps);
   }
 

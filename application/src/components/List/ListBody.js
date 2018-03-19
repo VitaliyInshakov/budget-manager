@@ -1,12 +1,13 @@
 import React from 'react';
+import cookie from 'react-cookies';
 
 const BudgetListBody = (props) => {
   function getItemAndEdit(item) {
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     !item.phone ? props.getBudget(authHeader, item) : props.getClient(authHeader, item);
   }
   function handleClickDeleteItem(item) {
-    props.deleteItem(item, props.data, props.budgetsVisible, `Bearer ${localStorage.getItem('token')}`);
+    props.deleteItem(item, props.data, props.budgetsVisible, `Bearer ${cookie.load('token')}`);
   }
    return (
     <section className="list-body">

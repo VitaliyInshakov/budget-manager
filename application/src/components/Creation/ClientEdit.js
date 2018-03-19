@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as actions from '../../actions/index';
 import { connect } from 'react-redux';
+import cookie from 'react-cookies';
 
 const renderTextField = ({input, label,...custom}) => {
   return (
@@ -20,7 +21,7 @@ const renderTextField = ({input, label,...custom}) => {
 class ClientEdit extends Component {
 
   handleClickUpdateClient(formProps) {
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     this.props.updateClient(authHeader, formProps);
   }
 
