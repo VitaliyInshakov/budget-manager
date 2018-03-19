@@ -1,6 +1,7 @@
 import React, { Component } from  'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
+import cookie from 'react-cookies';
 import Header from '../Header';
 import List from '../List/List';
 import ListHeader from '../List/ListHeader';
@@ -21,7 +22,7 @@ import {
 
 class Home extends Component {
   componentWillMount(){
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     this.props.getAllBudgets(authHeader);
     this.props.getAllClients(authHeader);
   }
@@ -37,7 +38,7 @@ class Home extends Component {
   }
 
   handleSelectState(state) {
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     this.props.changeStateField(state);
     state === 'all' ? this.props.getAllBudgets(authHeader) : this.props.getBudgetsByState(authHeader, state);
   }

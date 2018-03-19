@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cookie from 'react-cookies';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -45,7 +46,7 @@ class BudgetEdit extends Component {
   }
 
   handleClickFixClient(budget) {
-    const authHeader = `Bearer ${localStorage.getItem('token')}`
+    const authHeader = `Bearer ${cookie.load('token')}`
     this.props.fixClientNameAndUpdate(authHeader, budget, this.props.clients);
   }
   handleChangeField(idx, field, event, index, value) {

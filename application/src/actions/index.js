@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cookie from 'react-cookies';
 import {
   AUTH_USER,
   UNAUTH_USER,
@@ -29,8 +30,8 @@ export function authenticate(credentials, redirect) {
     axios.post(`${BudgetManagerAPI}/api/v1/auth`, credentials)
       .then((response) => {
         dispatch({ type: AUTH_USER });
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user_id', response.data.user._id);
+        cookie.save('token', response.data.token);
+        cookie.save('user_id', response.data.user._id);
         if(redirect) history.push(redirect);
       })
       .catch((error) => {
@@ -45,8 +46,8 @@ export function signup(credentials, redirect) {
         axios.post(`${BudgetManagerAPI}/api/v1/auth`, credentials)
         .then((response) => {
           dispatch({ type: AUTH_USER });
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('user_id', response.data.user._id);
+          cookie.save('token', response.data.token);
+          cookie.save('user_id', response.data.user._id);
           if(redirect) history.push(redirect);
         })
         .catch((error) => {
@@ -60,8 +61,8 @@ export function signup(credentials, redirect) {
 }
 export function signout(redirect) {
   return function(dispatch) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
+    cookie.remove('token');
+    cookie.remove('user_id');
     dispatch({ type: UNAUTH_USER });
     if(redirect) history.push(redirect);
   }
@@ -117,7 +118,7 @@ export function getBudget(authHeader, budget) {
   return function(dispatch) {
     axios.get(`${BudgetManagerAPI}/api/v1/budget/single`, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id'), _id: budget._id }
+      params: { user_id: cookie.load('user_id'), _id: budget._id }
     }).then(({ data }) => {
       dispatch({
         type: GET_BUDGET,
@@ -132,7 +133,7 @@ export function saveBudget(authHeader, budget) {
   return function(dispatch) {
     axios.post(`${BudgetManagerAPI}/api/v1/budget`, budget, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id') }
+      params: { user_id: cookie.load('user_id') }
     }).then((res) => {
       resetFields(budget);
       dispatch({
@@ -149,7 +150,7 @@ export function saveClient(authHeader, client) {
   return function(dispatch) {
     axios.post(`${BudgetManagerAPI}/api/v1/client`, client, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id') }
+      params: { user_id: cookie.load('user_id') }
     }).then((res) => {
       resetFields(client);
       dispatch({
@@ -180,7 +181,7 @@ export function updateBudget(authHeader, budget) {
   return function(dispatch) {
     axios.put(`${BudgetManagerAPI}/api/v1/budget/single`, budget, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id') }
+      params: { user_id: cookie.load('user_id') }
     }).then(() => {
       dispatch({
         type: UPDATE_BUDGET,
@@ -196,7 +197,7 @@ export function updateClient(authHeader, client) {
   return function(dispatch) {
     axios.put(`${BudgetManagerAPI}/api/v1/client/single`, client, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id') }
+      params: { user_id: cookie.load('user_id') }
     }).then(() => {
       dispatch({
         type: UPDATE_CLIENT,
@@ -223,7 +224,7 @@ export function getClient(authHeader, client) {
   return function(dispatch) {
     axios.get(`${BudgetManagerAPI}/api/v1/client/single`, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id'), _id: client._id }
+      params: { user_id: cookie.load('user_id'), _id: client._id }
     }).then(({ data }) => {
       dispatch({
         type: GET_CLIENT,
@@ -238,7 +239,7 @@ export function getBudgetsByState(authHeader, state) {
   return function(dispatch) {
     axios.get(`${BudgetManagerAPI}/api/v1/budget/state`, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id'), state }
+      params: { user_id: cookie.load('user_id'), state }
     }).then(({ data }) => {
       dispatch({
         type: GET_BUDGETS_BY_STATE,
@@ -262,7 +263,7 @@ export function getAllClients(authHeader) {
   return function(dispatch) {
     axios.get(`${BudgetManagerAPI}/api/v1/client`, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id') }
+      params: { user_id: cookie.load('user_id') }
     }).then(({ data }) => {
       dispatch({
         type: GET_CLIENTS,
@@ -304,7 +305,7 @@ export function deleteItem(selected, items, api, authHeader) {
     api ? targetApi = 'budget' : targetApi = 'client';
     axios.delete(`${BudgetManagerAPI}/api/v1/${targetApi}`, {
       headers: { 'Authorization': authHeader },
-      params: { user_id: localStorage.getItem('user_id'), _id: selected._id }
+      params: { user_id: cookie.load('user_id'), _id: selected._id }
     }).then(() => {
       items.forEach((item, index) => {
         if (item === selected) {
